@@ -5,7 +5,7 @@ from taiga.projects import models
 
 
 def add_user_to_project(user, project):
-    join_role = project.get_roles().get(project=project, slug=settings.UNRATED_PROJECT_JOIN_ROLE)
+    join_role = project.get_roles().get(project=project, name__iexact=settings.UNRATED_PROJECT_JOIN_ROLE)
     models.Membership.objects.create(user=user, project=project, role=join_role)
 
 
