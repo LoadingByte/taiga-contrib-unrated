@@ -1,7 +1,0 @@
-{
-    "name": "Unrated",
-    "slug": "unrated",
-    "description": "Taiga contrib plugin that extends Taiga to fit our needs at Unrated Film Industries.",
-    "type": "misc",
-    "js": "/plugins/unrated/unrated.js"
-}
