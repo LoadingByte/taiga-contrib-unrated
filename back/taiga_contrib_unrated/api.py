@@ -19,8 +19,8 @@ class UnratedViewSet(viewsets.ViewSet):
 
     @list_route(methods=['GET'])
     def join_project(self, request, pk=None):
-        project_id = request.QUERY_PARAMS.get("project", None)
-        project = get_object_or_404(Project, id=project_id)
+        project_slug = request.QUERY_PARAMS.get("project", None)
+        project = get_object_or_404(Project, slug=project_slug)
 
         self.check_permissions(request, 'join_project', project)
         services.add_user_to_project(request.user, project)
