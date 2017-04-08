@@ -25,7 +25,7 @@ class UnratedViewSet(viewsets.ViewSet):
 
         self.check_permissions(request, 'join_project', project)
 
-        if not project.get_roles().filter(project=project, name=settings.UNRATED_PROJECT_JOIN_ROLE).exists():
+        if not project.get_roles().filter(project=project, name__iexact=settings.UNRATED_PROJECT_JOIN_ROLE).exists():
             raise exc.NotFound(_("No join role with name '%s' in project '%s' (see UNRATED_PROJECT_JOIN_ROLE in config)"
                                    % (settings.UNRATED_PROJECT_JOIN_ROLE, project.slug)))
         if project.memberships.filter(user=request.user).exists():
