@@ -10,6 +10,4 @@ def add_user_to_project(user, project):
 
 
 def can_user_join_project(user, project):
-    is_member = project.memberships.filter(user=user).exists()
-    join_role_exists = project.get_roles().filter(project=project, slug=settings.UNRATED_PROJECT_JOIN_ROLE).exists()
-    return (not project.is_private) and (not is_member) and join_role_exists
+    return not project.is_private

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.utils.translation import ugettext as _
+from django.conf import settings
 
 from taiga.base.api import viewsets
 from taiga.base.api.utils import get_object_or_404
@@ -23,5 +24,12 @@ class UnratedViewSet(viewsets.ViewSet):
         project = get_object_or_404(Project, slug=project_slug)
 
         self.check_permissions(request, 'join_project', project)
+
+        if not project.get_roles().filter(project=project, name=settings.UNRATED_PROJECT_JOIN_ROLE).exists():
+            raise exc.NotFound(_("No join role with name '%s' in project '%s' (see UNRATED_PROJECT_JOIN_ROLE in config)"
+                                   % (settings.UNRATED_PROJECT_JOIN_ROLE, project.slug)))
+        if project.memberships.filter(user=user).exists():
+            raise exc.IntegrityError(_("Already member of project '%s'" % project.slug))
+
         services.add_user_to_project(request.user, project)
         return response.Ok()
