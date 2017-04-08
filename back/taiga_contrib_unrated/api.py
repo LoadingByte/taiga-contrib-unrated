@@ -28,7 +28,7 @@ class UnratedViewSet(viewsets.ViewSet):
         if not project.get_roles().filter(project=project, name=settings.UNRATED_PROJECT_JOIN_ROLE).exists():
             raise exc.NotFound(_("No join role with name '%s' in project '%s' (see UNRATED_PROJECT_JOIN_ROLE in config)"
                                    % (settings.UNRATED_PROJECT_JOIN_ROLE, project.slug)))
-        if project.memberships.filter(user=user).exists():
+        if project.memberships.filter(user=request.user).exists():
             raise exc.IntegrityError(_("Already member of project '%s'" % project.slug))
 
         services.add_user_to_project(request.user, project)
