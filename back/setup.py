@@ -12,8 +12,8 @@ setup(
     keywords = 'taiga, unrated, unratedfilmindustries',
     author = 'LoadingByte',
     author_email = 'kontakt@unratedfilmindustries.de',
-    url = 'https://www.unratedfilmindustries.de',
-    license = 'GPL',
+    url = 'https://github.com/UnratedFilmIndustries/taiga-contrib-unrated',
+    license = 'GPL-3.0',
     include_package_data = True,
     packages = find_packages(),
     classifiers = [
